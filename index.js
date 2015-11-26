@@ -11,9 +11,6 @@ const express = require('express');
 const extend = require('backbone-extend-standalone');
 const logger = require('bunyan-duckling');
 
-// TODO: Change all `page` vars to be named `app`, `that` or `appInstance` or something
-// TODO: Use arrow functions
-// TODO: Add the middleware that ensures a single host
 // TODO: Add documentation
 
 // TODO: Replace with vhost module?
@@ -51,7 +48,6 @@ ExpressWrapper.prototype.getApp = function () {
   this._middlewareSetup();
   this._routeSetup();
   this._postRouteSetup();
-  // TODO: Add some routes etc
 
   return this.app;
 };
