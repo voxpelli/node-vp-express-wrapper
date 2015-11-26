@@ -216,7 +216,7 @@ ExpressWrapper.getDefaultConfig = function (env, prefix) {
   };
 };
 
-ExpressWrapper.subclassOrRunUntilKillSignal = function (currentModule, options, protoProps, staticProps) {
+ExpressWrapper.subclassOrRun = function (currentModule, options, protoProps, staticProps) {
   var NewClass = protoProps ? this.extend(protoProps, staticProps) : this;
 
   if (currentModule.parent) {
@@ -227,4 +227,4 @@ ExpressWrapper.subclassOrRunUntilKillSignal = function (currentModule, options, 
   }
 };
 
-module.exports = ExpressWrapper.subclassOrRunUntilKillSignal(module);
+module.exports = ExpressWrapper.subclassOrRun(module);
