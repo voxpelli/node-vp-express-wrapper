@@ -1,7 +1,12 @@
 {
   "name": "vp-express-wrapper",
   "version": "1.0.0",
-  "description": "",
+  "description": "Wrapper around Express that provides some convenience setup around it",
+  "homepage": "https://github.com/voxpelli/node-vp-express-wrapper",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/voxpelli/node-vp-express-wrapper.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "node -e \"require('grunt').tasks(['test']);\"",
