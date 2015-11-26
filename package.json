@@ -25,5 +25,15 @@
     "istanbul": "^0.4.1",
     "lintlovin": "github:voxpelli/lintlovin#2.x",
     "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "backbone-extend-standalone": "^0.1.2",
+    "basic-auth": "^1.0.3",
+    "bunyan-duckling": "^1.0.0",
+    "compression": "^1.6.0",
+    "dotenv": "^1.2.0",
+    "emit-then": "^2.0.0",
+    "errorhandler": "^1.4.2",
+    "express": "^4.13.3"
   }
 }
