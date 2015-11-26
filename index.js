@@ -221,6 +221,10 @@ ExpressWrapper.getDefaultConfig = function (env, prefix) {
     // Application specific configurations
 
     host: env[prefix + 'HOST'],
+    webAuth: {
+      user: env[prefix + 'WEB_USER'],
+      pass: env[prefix + 'WEB_PASS'],
+    },
   };
 };
 
