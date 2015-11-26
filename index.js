@@ -43,7 +43,7 @@ ExpressWrapper.extend = extend;
 ExpressWrapper.envConfigPrefix = 'EXPRESS_WRAPPER_';
 
 ExpressWrapper.prototype.getExpressApp = function () {
-  if (!this.app) { return this.app; }
+  if (this.app) { return this.app; }
 
   this.app = express();
 
@@ -54,6 +54,10 @@ ExpressWrapper.prototype.getExpressApp = function () {
   // TODO: Add some routes etc
 
   return this.app;
+};
+
+ExpressWrapper.prototype.getRoutes = function () {
+  return {};
 };
 
 ExpressWrapper.prototype._expressAppConfig = function () {
@@ -91,7 +95,11 @@ ExpressWrapper.prototype._middlewareSetup = function () {
 };
 
 ExpressWrapper.prototype._routeSetup = function () {
-  throw new Error('You need to set up some custom routes');
+  let routes = this.getRoutes();
+
+  for (let path in routes) {
+    this.app.use(path, routes[path]);
+  }
 };
 
 ExpressWrapper.prototype._postRouteSetup = function () {
@@ -193,7 +201,7 @@ ExpressWrapper.getDefaultConfig = function (env, prefix) {
   prefix = prefix || this.envConfigPrefix;
 
   if (!env || typeof env === 'string') {
-    env = this.getDefaultEnv(env, prefix);
+    env = this._getDefaultEnv(env, prefix);
   }
 
   prefix = env[prefix + 'PREFIX'] || prefix;
