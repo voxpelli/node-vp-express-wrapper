@@ -44,7 +44,7 @@ ExpressWrapper.prototype.getApp = function () {
 
   this.app = express();
 
-  this._expressAppConfig();
+  this._appConfig();
   this._middlewareSetup();
   this._routeSetup();
   this._postRouteSetup();
@@ -56,7 +56,7 @@ ExpressWrapper.prototype.getRoutes = function () {
   return {};
 };
 
-ExpressWrapper.prototype._expressAppConfig = function () {
+ExpressWrapper.prototype._appConfig = function () {
   this.app.enable('case sensitive routing');
   this.app.enable('strict routing');
   this.app.disable('x-powered-by');
