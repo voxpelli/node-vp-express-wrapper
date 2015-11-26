@@ -42,7 +42,7 @@ ExpressWrapper.extend = extend;
 
 ExpressWrapper.envConfigPrefix = 'EXPRESS_WRAPPER_';
 
-ExpressWrapper.prototype.getExpressApp = function () {
+ExpressWrapper.prototype.getApp = function () {
   if (this.app) { return this.app; }
 
   this.app = express();
@@ -119,7 +119,7 @@ ExpressWrapper.prototype.getServer = function () {
 
   this.httpConnections = {};
 
-  this.httpServer = http.createServer(this.getExpressApp());
+  this.httpServer = http.createServer(this.getApp());
   this.httpServer.on('connection', conn => {
     var key = conn.remoteAddress + ':' + conn.remotePort;
 
@@ -135,7 +135,7 @@ ExpressWrapper.prototype.getServer = function () {
 
 ExpressWrapper.prototype.startServer = function () {
   let httpServer = this.getServer();
-  let port = this.getExpressApp().get('port');
+  let port = this.getApp().get('port');
 
   httpServer.listen(port, () => {
     this.logger.info('Server started. Listening on port ' + port);
