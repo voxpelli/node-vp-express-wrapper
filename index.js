@@ -26,13 +26,13 @@ const ensureSingleHost = function (wrapperInstance, req, res, next) {
   res.redirect(req.protocol + '://' + wrapperInstance.config.host + req.url);
 };
 
-const ExpressWrapper = function (options, config) {
+const ExpressWrapper = function (options) {
   EventEmitter.call(this);
 
   options = options || {};
 
   this.logger = options.logger || logger;
-  this.config = Object.assign({}, this.constructor.getDefaultConfig(options.env, options.prefix), config);
+  this.config = this.constructor.getDefaultConfig(options.env, options.prefix);
 };
 
 util.inherits(ExpressWrapper, EventEmitter);
@@ -216,44 +216,8 @@ ExpressWrapper.getDefaultConfig = function (env, prefix) {
   };
 };
 
-ExpressWrapper.subclass = function (expose) {
-  var ExistingClass = this;
-  var NewClass;
-
-  NewClass = ExistingClass.extend({}, {
-    subclassOrRunUntilKillSignal: ExistingClass.subclassOrRunUntilKillSignal,
-    subclass: ExistingClass.subclass,
-  });
-
-  // TODO: Make this pluggable somewhow
-  // TODO: Aaaaand move this to .extend()?
-  // if (expose.basetheme) {
-  //   Object.defineProperty(NewClass, 'basetheme', {
-  //     configurable: true,
-  //     get : function () {
-  //       var basetheme = expose.basetheme || ExistingClass.basetheme;
-  //       return _.isString(basetheme) ? require(basetheme) : basetheme;
-  //     },
-  //   });
-  // }
-  //
-  // if (expose.contentTypes) {
-  //   NewClass.prototype.contentTypes = Object.create(ExistingClass.prototype.contentTypes);
-  //   _.each(expose.contentTypes, function (contentType, key) {
-  //     Object.defineProperty(NewClass.prototype.contentTypes, key, {
-  //       configurable: true,
-  //       get : function () {
-  //         return _.isString(contentType) ? require(contentType) : contentType;
-  //       },
-  //     });
-  //   });
-  // }
-
-  return NewClass;
-};
-
-ExpressWrapper.subclassOrRunUntilKillSignal = function (currentModule, expose, options) {
-  var NewClass = expose ? this.extend(expose) : this;
+ExpressWrapper.subclassOrRunUntilKillSignal = function (currentModule, options, protoProps, staticProps) {
+  var NewClass = protoProps ? this.extend(protoProps, staticProps) : this;
 
   if (currentModule.parent) {
     return NewClass;
