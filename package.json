@@ -1,6 +1,6 @@
 {
   "name": "vp-express-wrapper",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Wrapper around Express that provides some convenience setup around it",
   "homepage": "https://github.com/voxpelli/node-vp-express-wrapper",
   "repository": {
