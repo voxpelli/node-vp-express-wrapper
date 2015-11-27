@@ -148,7 +148,7 @@ describe('Express Wrapper', function () {
       runnerStub.should.have.been.calledOnce;
     });
 
-    it('should run a subclass when subclassing and given a module with no parent', function () {
+    it('should run a subclass when also subclassing', function () {
       const ConstructorSpy = sandbox.spy(ExpressWrapper);
       const configStub = sandbox.stub(ExpressWrapper.ExpressConfig, 'getDefaultConfig');
 
