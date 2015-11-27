@@ -31,6 +31,8 @@
     "istanbul": "^0.4.1",
     "lintlovin": "github:voxpelli/lintlovin#2.x",
     "mocha": "^2.3.4",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
     "supertest": "^1.1.0",
     "supertest-as-promised": "^2.0.2"
   },

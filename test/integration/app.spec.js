@@ -3,20 +3,30 @@
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const request = require('supertest-as-promised');
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+
+const should = chai.should();
 
 chai.use(chaiAsPromised);
-chai.should();
+chai.use(sinonChai);
 
-describe('Express Wrapper App', function () {
+describe('Express Wrapper', function () {
   const ExpressWrapper = require('../../');
 
+  let sandbox;
   let config;
 
   beforeEach(function () {
     config = ExpressWrapper.ExpressConfig.getDefaultConfig({});
+    sandbox = sinon.sandbox.create();
   });
 
-  describe('basic', function () {
+  afterEach(function () {
+    sandbox.restore();
+  });
+
+  describe('routes', function () {
     it('should return a web page on the "/" path', function () {
       const wrapperInstance = new ExpressWrapper(config);
       const app = wrapperInstance.getApp();
@@ -90,6 +100,75 @@ describe('Express Wrapper App', function () {
             .auth('foo', 'bar')
             .expect(200)
         );
+    });
+  });
+
+  describe('subclassOrRun', function () {
+    it('should return a class when given a module with a parent', function () {
+      const WrapperClass = ExpressWrapper.subclassOrRun({ parent: true });
+
+      should.exist(WrapperClass);
+
+      WrapperClass.should.be.a('function').and.equal(ExpressWrapper);
+    });
+
+    it('should return a subclass when given new properties', function () {
+      const WrapperClass = ExpressWrapper.subclassOrRun({ parent: true }, {}, {
+        foo: 'bar',
+      });
+
+      should.exist(WrapperClass);
+
+      WrapperClass.should.be.a('function');
+      WrapperClass.should.have.property('__super__', ExpressWrapper.prototype);
+      WrapperClass.should.have.deep.property('prototype.foo', 'bar');
+
+      ExpressWrapper.should.not.have.deep.property('prototype.foo');
+    });
+
+    it('should run when given a module with no parent', function () {
+      const ConstructorSpy = sandbox.spy(ExpressWrapper);
+      const runnerStub = sandbox.stub(ExpressWrapper.ExpressRunner.prototype, 'runUntilKillSignal');
+      const configStub = sandbox.stub(ExpressWrapper.ExpressConfig, 'getDefaultConfig');
+
+      configStub.returns(config);
+
+      const WrapperClass = ConstructorSpy.subclassOrRun({ parent: undefined });
+
+      should.not.exist(WrapperClass);
+
+      configStub.should.have.been.calledOnce;
+      configStub.should.have.been.calledBefore(ConstructorSpy);
+
+      ConstructorSpy.should.have.been.calledOnce;
+      ConstructorSpy.should.have.been.calledBefore(runnerStub);
+      ConstructorSpy.should.have.been.calledWithNew;
+      ConstructorSpy.should.have.been.calledWith(config);
+
+      runnerStub.should.have.been.calledOnce;
+    });
+
+    it('should run a subclass when subclassing and given a module with no parent', function () {
+      const ConstructorSpy = sandbox.spy(ExpressWrapper);
+      const configStub = sandbox.stub(ExpressWrapper.ExpressConfig, 'getDefaultConfig');
+
+      sandbox.stub(ExpressWrapper.ExpressRunner.prototype, 'runUntilKillSignal');
+
+      configStub.returns(config);
+
+      const WrapperClass = ConstructorSpy.subclassOrRun({ parent: undefined }, {}, {
+        foo: 'bar',
+      });
+
+      should.not.exist(WrapperClass);
+
+      ConstructorSpy.should.have.been.calledOnce;
+      ConstructorSpy.should.have.been.calledWith(config);
+
+      should.exist(ConstructorSpy.thisValues[0]);
+      should.exist(ConstructorSpy.thisValues[0].foo);
+
+      ConstructorSpy.thisValues[0].foo.should.equal('bar');
     });
   });
 });
