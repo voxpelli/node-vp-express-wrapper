@@ -18,7 +18,7 @@ describe('Express Wrapper', function () {
   let config;
 
   beforeEach(function () {
-    config = ExpressWrapper.ExpressConfig.getDefaultConfig({});
+    config = ExpressWrapper.ExpressConfig.getConfig({});
     sandbox = sinon.sandbox.create();
   });
 
@@ -137,7 +137,7 @@ describe('Express Wrapper', function () {
     it('should run when given a module with no parent', function () {
       const ConstructorSpy = sandbox.spy(ExpressWrapper);
       const runnerStub = sandbox.stub(ExpressWrapper.ExpressRunner.prototype, 'runUntilKillSignal');
-      const configStub = sandbox.stub(ExpressWrapper.ExpressConfig, 'getDefaultConfig');
+      const configStub = sandbox.stub(ExpressWrapper.ExpressConfig, 'getConfig');
 
       configStub.returns(config);
 
@@ -158,7 +158,7 @@ describe('Express Wrapper', function () {
 
     it('should run a subclass when also subclassing', function () {
       const ConstructorSpy = sandbox.spy(ExpressWrapper);
-      const configStub = sandbox.stub(ExpressWrapper.ExpressConfig, 'getDefaultConfig');
+      const configStub = sandbox.stub(ExpressWrapper.ExpressConfig, 'getConfig');
 
       sandbox.stub(ExpressWrapper.ExpressRunner.prototype, 'runUntilKillSignal');
 
