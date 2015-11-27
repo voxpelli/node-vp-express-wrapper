@@ -26,6 +26,14 @@ describe('Express Wrapper', function () {
     sandbox.restore();
   });
 
+  describe('constructor', function () {
+    it('should throw if given no configuration', function () {
+      (function () {
+        return new ExpressWrapper();
+      }).should.throw(Error);
+    });
+  });
+
   describe('routes', function () {
     it('should return a web page on the "/" path', function () {
       const wrapperInstance = new ExpressWrapper(config);
