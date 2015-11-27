@@ -3,11 +3,9 @@
 // TODO: Add documentation
 
 const ExpressWrapper = require('./lib/wrapper');
-const ExpressConfig = require('./lib/config');
-const ExpressRunner = require('./lib/runner');
 
-ExpressWrapper.ExpressConfig = ExpressConfig;
-ExpressWrapper.ExpressRunner = ExpressRunner;
+ExpressWrapper.ExpressConfig = require('./lib/config');
+ExpressWrapper.ExpressRunner = require('./lib/runner');
 
 ExpressWrapper.envConfigPrefix = 'EXPRESS_WRAPPER_';
 
