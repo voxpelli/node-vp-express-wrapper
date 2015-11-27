@@ -71,5 +71,25 @@ describe('Express Wrapper App', function () {
         .get('/')
         .expect(404);
     });
+
+    it('should support locking down app through basic authentication', function () {
+      config.webAuth = {
+        user: 'foo',
+        pass: 'bar',
+      };
+
+      const wrapperInstance = new ExpressWrapper(config);
+      const app = wrapperInstance.getApp();
+
+      return request(app)
+        .get('/')
+        .expect(401)
+        .then(() =>
+          request(app)
+            .get('/')
+            .auth('foo', 'bar')
+            .expect(200)
+        );
+    });
   });
 });
