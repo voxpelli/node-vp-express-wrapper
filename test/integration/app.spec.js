@@ -19,7 +19,7 @@ describe('Express Wrapper App', function () {
 
       const WrapperClass = ExpressWrapper.extend(protoProps);
 
-      const config = ExpressWrapper.ExpressRunner.getDefaultConfig({});
+      const config = ExpressWrapper.ExpressConfig.getDefaultConfig({});
 
       const wrapperInstance = new WrapperClass(config);
       const app = wrapperInstance.getApp();
