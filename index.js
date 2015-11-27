@@ -23,21 +23,23 @@ const ensureSingleHost = function (wrapperInstance, req, res, next) {
   res.redirect(req.protocol + '://' + wrapperInstance.config.host + req.url);
 };
 
-const ExpressWrapper = function (options) {
+const ExpressWrapper = function (config, options) {
   EventEmitter.call(this);
+
+  if (!config) {
+    throw new Error('Config is required');
+  }
 
   options = options || {};
 
   this.logger = options.logger || logger;
-  this.config = this.constructor.getDefaultConfig(options.env, options.prefix);
+  this.config = config;
 };
 
 util.inherits(ExpressWrapper, EventEmitter);
 
 ExpressWrapper.emitThen = emitThen;
 ExpressWrapper.extend = extend;
-
-ExpressWrapper.envConfigPrefix = 'EXPRESS_WRAPPER_';
 
 ExpressWrapper.prototype.getApp = function () {
   if (this.app) { return this.app; }
@@ -104,18 +106,26 @@ ExpressWrapper.prototype._postRouteSetup = function () {
   }
 };
 
-ExpressWrapper.prototype.close = function () {
-  return this
-    .emitThen('close')
-    .then(() => this.emitThen('close-complete'));
+const ExpressRunner = function (wrapperInstance, options) {
+  this.wrapperInstance = wrapperInstance;
+
+  this.logger = wrapperInstance.logger;
+  this.config = wrapperInstance.config;
 };
 
-ExpressWrapper.prototype.getServer = function () {
+ExpressRunner.extend = extend;
+ExpressRunner.envConfigPrefix = 'EXPRESS_WRAPPER_';
+
+ExpressRunner.prototype.close = function () {
+  return this.wrapperInstance.close();
+};
+
+ExpressRunner.prototype.getServer = function () {
   if (this.httpServer) { return this.httpServer; }
 
   this.httpConnections = {};
 
-  this.httpServer = http.createServer(this.getApp());
+  this.httpServer = http.createServer(this.wrapperInstance.getApp());
   this.httpServer.on('connection', conn => {
     var key = conn.remoteAddress + ':' + conn.remotePort;
 
@@ -129,9 +139,9 @@ ExpressWrapper.prototype.getServer = function () {
   return this.httpServer;
 };
 
-ExpressWrapper.prototype.startServer = function () {
+ExpressRunner.prototype.startServer = function () {
   let httpServer = this.getServer();
-  let port = this.getApp().get('port');
+  let port = this.wrapperInstance.getApp().get('port');
 
   httpServer.listen(port, () => {
     this.logger.info('Server started. Listening on port ' + port);
@@ -174,7 +184,7 @@ ExpressWrapper.prototype.startServer = function () {
   };
 };
 
-ExpressWrapper.prototype.runUntilKillSignal = function () {
+ExpressRunner.prototype.runUntilKillSignal = function () {
   var closeServer = this.startServer();
 
   if (this.config.dev.cleanUpOnSigint) {
@@ -183,7 +193,7 @@ ExpressWrapper.prototype.runUntilKillSignal = function () {
   process.on('SIGTERM', closeServer);
 };
 
-ExpressWrapper._getDefaultEnv = function (env, prefix) {
+ExpressRunner._getDefaultEnv = function (env, prefix) {
   if (typeof env === 'string') {
     require('dotenv').config({path: env});
   } else if (!process.env[prefix + 'PREFIX'] && !process.env[prefix + 'HOST']) {
@@ -193,7 +203,7 @@ ExpressWrapper._getDefaultEnv = function (env, prefix) {
   return process.env;
 };
 
-ExpressWrapper.getDefaultConfig = function (env, prefix) {
+ExpressRunner.getDefaultConfig = function (env, prefix) {
   prefix = prefix || this.envConfigPrefix;
 
   if (!env || typeof env === 'string') {
@@ -225,14 +235,22 @@ ExpressWrapper.getDefaultConfig = function (env, prefix) {
 };
 
 ExpressWrapper.subclassOrRun = function (currentModule, options, protoProps, staticProps) {
-  var NewClass = protoProps ? this.extend(protoProps, staticProps) : this;
+  let WrapperClass = protoProps ? this.extend(protoProps, staticProps) : this;
 
-  if (currentModule.parent) {
-    return NewClass;
-  } else {
-    var classInstance = new NewClass(options);
-    classInstance.runUntilKillSignal();
-  }
+  if (currentModule.parent) { return WrapperClass; }
+
+  options = options || {};
+
+  let ExpressRunner = WrapperClass.ExpressRunner;
+
+  let config = ExpressRunner.getDefaultConfig(options.env, options.prefix);
+
+  let wrapperInstance = new WrapperClass(config, options);
+  let runnerInstance = new ExpressRunner(wrapperInstance);
+
+  runnerInstance.runUntilKillSignal();
 };
+
+ExpressWrapper.ExpressRunner = ExpressRunner;
 
 module.exports = ExpressWrapper.subclassOrRun(module);
