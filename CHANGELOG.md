@@ -1,3 +1,11 @@
+### 0.3.1 (2015-11-27)
+
+
+#### Bug Fixes
+
+* **wrapper:** fixed basic authentication ([9cfdbb39](https://github.com/voxpelli/node-vp-express-wrapper/commit/9cfdbb3971fd824932a6655ce925215e1b7d8407))
+
+
 ## 0.3.0 (2015-11-27)
 
 
