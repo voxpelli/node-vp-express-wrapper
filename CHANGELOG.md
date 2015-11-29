@@ -1,3 +1,23 @@
+## 0.4.0 (2015-11-29)
+
+
+#### Bug Fixes
+
+* **main:** fetch prefix from correct object ([30db8426](https://github.com/voxpelli/node-vp-express-wrapper/commit/30db8426d8768ac2f13e84f4446c547123c908b6))
+* **wrapper:** added lost .close() method ([dc7d08b6](https://github.com/voxpelli/node-vp-express-wrapper/commit/dc7d08b687a9d85af8b3d40ffce4079accf2b0f5))
+
+
+#### Features
+
+* **wrapper:** emit a "started" after start ([1c6e8f62](https://github.com/voxpelli/node-vp-express-wrapper/commit/1c6e8f62bde3f5774c722c34368e9c320f272c34))
+
+
+#### Breaking Changes
+
+* New names for getDefaultEnv() and getDefaultConfig() – they are now just getEnv() and getConfig()
+ ([a0a4738b](https://github.com/voxpelli/node-vp-express-wrapper/commit/a0a4738b26d128407fda07e0f75eacc254af28e3))
+
+
 ### 0.3.1 (2015-11-27)
 
 
