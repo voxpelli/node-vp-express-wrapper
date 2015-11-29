@@ -19,7 +19,7 @@ ExpressWrapper.subclassOrRun = function (currentModule, options, protoProps, sta
   let ExpressRunner = WrapperClass.ExpressRunner;
   let ExpressConfig = WrapperClass.ExpressConfig;
 
-  let config = ExpressConfig.getConfig(options.env, options.prefix || this.envConfigPrefix);
+  let config = ExpressConfig.getConfig(options.env, options.prefix || WrapperClass.envConfigPrefix);
 
   let wrapperInstance = new WrapperClass(config, options);
   let runnerInstance = new ExpressRunner(wrapperInstance);
