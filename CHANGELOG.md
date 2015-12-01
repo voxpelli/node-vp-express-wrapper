@@ -1,3 +1,16 @@
+### 0.4.1 (2015-12-01)
+
+
+#### Bug Fixes
+
+* **main:** always return class – avoid cache issue ([9ff3bc7a](https://github.com/voxpelli/node-vp-express-wrapper/commit/9ff3bc7a62200339aea589811b4436930a420741))
+
+
+#### Features
+
+* **main:** added option to skip HOST-enforcing ([162a6215](https://github.com/voxpelli/node-vp-express-wrapper/commit/162a6215067c5911e955efbedf732de7d3a20500))
+
+
 ## 0.4.0 (2015-11-29)
 
 
