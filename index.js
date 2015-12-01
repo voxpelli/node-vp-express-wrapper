@@ -25,6 +25,8 @@ ExpressWrapper.subclassOrRun = function (currentModule, options, protoProps, sta
   let runnerInstance = new ExpressRunner(wrapperInstance);
 
   runnerInstance.runUntilKillSignal();
+
+  return WrapperClass;
 };
 
 module.exports = ExpressWrapper.subclassOrRun(module);

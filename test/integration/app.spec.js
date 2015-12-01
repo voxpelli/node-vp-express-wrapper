@@ -143,7 +143,9 @@ describe('Express Wrapper', function () {
 
       const WrapperClass = ConstructorSpy.subclassOrRun({ parent: undefined });
 
-      should.not.exist(WrapperClass);
+      should.exist(WrapperClass);
+
+      WrapperClass.should.be.a('function').and.equal(ConstructorSpy);
 
       configStub.should.have.been.calledOnce;
       configStub.should.have.been.calledBefore(ConstructorSpy);
@@ -168,7 +170,11 @@ describe('Express Wrapper', function () {
         foo: 'bar',
       });
 
-      should.not.exist(WrapperClass);
+      should.exist(WrapperClass);
+
+      WrapperClass.should.be.a('function');
+      WrapperClass.should.have.property('__super__', ExpressWrapper.prototype);
+      WrapperClass.should.have.deep.property('prototype.foo', 'bar');
 
       ConstructorSpy.should.have.been.calledOnce;
       ConstructorSpy.should.have.been.calledWith(config);
