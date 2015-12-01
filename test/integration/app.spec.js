@@ -34,6 +34,18 @@ describe('Express Wrapper', function () {
     });
   });
 
+  describe('close', function () {
+    it('should close down', function () {
+      const wrapperInstance = new ExpressWrapper(config);
+      const app = wrapperInstance.getApp();
+
+      return request(app)
+        .get('/')
+        .expect(200)
+        .then(() => wrapperInstance.close());
+    });
+  });
+
   describe('routes', function () {
     it('should return a web page on the "/" path', function () {
       const wrapperInstance = new ExpressWrapper(config);
