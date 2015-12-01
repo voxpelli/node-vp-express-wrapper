@@ -1,3 +1,11 @@
+### 0.4.2 (2015-12-01)
+
+
+#### Bug Fixes
+
+* **wrapper:** make the close method work ([af09a572](https://github.com/voxpelli/node-vp-express-wrapper/commit/af09a5720363d9d03e0f03f04401379548450d14))
+
+
 ### 0.4.1 (2015-12-01)
 
 
