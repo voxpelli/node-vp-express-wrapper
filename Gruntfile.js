@@ -5,7 +5,7 @@ var lintlovin = require('lintlovin');
 module.exports = function (grunt) {
   lintlovin.initConfig(grunt, {}, {
     enableCoverageEvent: true,
-    integrationWatch: true,
+    alwaysIntegration: true,
     integrationTravis: true,
   });
 
