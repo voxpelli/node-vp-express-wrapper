@@ -14,6 +14,8 @@ ExpressWrapper.subclassOrRun = function (currentModule, options, protoProps, sta
 
   if (currentModule.parent) { return WrapperClass; }
 
+  delete require.cache[currentModule.filename];
+
   options = options || {};
 
   let ExpressRunner = WrapperClass.ExpressRunner;
