@@ -1,3 +1,11 @@
+### 0.5.1 (2015-12-02)
+
+
+#### Bug Fixes
+
+* **main:** remove cache on run ([d0d7e80c](https://github.com/voxpelli/node-vp-express-wrapper/commit/d0d7e80c6a1bfd01116900b523de07cdfb77ae02))
+
+
 ## 0.5.0 (2015-12-02)
 
 
