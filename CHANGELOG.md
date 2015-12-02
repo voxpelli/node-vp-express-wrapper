@@ -1,3 +1,17 @@
+## 0.5.0 (2015-12-02)
+
+
+#### Bug Fixes
+
+* **config:** make dotenv fail silently ([5432c433](https://github.com/voxpelli/node-vp-express-wrapper/commit/5432c433251c381de8b366a795b57e542f23e7f6))
+
+
+#### Breaking Changes
+
+* .extend() is now .staticExtend() and now has a single argument that's the new static properties to add/replace
+ ([b2b2ce95](https://github.com/voxpelli/node-vp-express-wrapper/commit/b2b2ce9507c7f763d40d7af2ea53772204022068))
+
+
 ### 0.4.2 (2015-12-01)
 
 
