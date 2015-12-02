@@ -1,3 +1,11 @@
+### 0.5.2 (2015-12-02)
+
+
+#### Bug Fixes
+
+* **wrapper:** fix so that the error handler works ([28676e7f](https://github.com/voxpelli/node-vp-express-wrapper/commit/28676e7f6e8ef77a891fb43d839446880d2346c6))
+
+
 ### 0.5.1 (2015-12-02)
 
 
