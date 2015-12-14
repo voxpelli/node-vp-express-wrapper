@@ -1,3 +1,11 @@
+## 0.6.0 (2015-12-14)
+
+
+#### Features
+
+* **wrapper:** support HTTPS enforcing ([11eaedaa](https://github.com/voxpelli/node-vp-express-wrapper/commit/11eaedaa8dead2812d790773d1b993f123b1d96f))
+
+
 ### 0.5.2 (2015-12-02)
 
 
