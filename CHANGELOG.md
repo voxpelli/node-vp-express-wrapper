@@ -1,3 +1,11 @@
+### 0.6.2 (2015-12-15)
+
+
+#### Bug Fixes
+
+* **wrapper:** remove debug statement ([2a259064](https://github.com/voxpelli/node-vp-express-wrapper/commit/2a2590646d83b7aeddd801f282d128e0580732a0))
+
+
 ### 0.6.1 (2015-12-15)
 
 
