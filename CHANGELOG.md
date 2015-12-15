@@ -1,3 +1,13 @@
+### 0.6.1 (2015-12-15)
+
+
+#### Bug Fixes
+
+* **wrapper:**
+  * some extra debugging + tweaks ([47324e72](https://github.com/voxpelli/node-vp-express-wrapper/commit/47324e72be8ef94854b2d12296d2a73e585c7164))
+  * do proper redirect ([465510bd](https://github.com/voxpelli/node-vp-express-wrapper/commit/465510bdf629b9deb507a210f42efc88f0aefae2))
+
+
 ## 0.6.0 (2015-12-14)
 
 
