@@ -1,3 +1,11 @@
+### 0.6.3 (2015-12-28)
+
+
+#### Features
+
+* **wrapper:** make it easier to customize logger ([be8cb141](https://github.com/voxpelli/node-vp-express-wrapper/commit/be8cb141d1210275fd34ad7a4d58ff1706d0a0ad))
+
+
 ### 0.6.2 (2015-12-15)
 
 
