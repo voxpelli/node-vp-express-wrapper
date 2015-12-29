@@ -1,3 +1,11 @@
+### 0.6.4 (2015-12-29)
+
+
+#### Bug Fixes
+
+* **wrapper:** set config prior to logger ([53dbe32f](https://github.com/voxpelli/node-vp-express-wrapper/commit/53dbe32f2722d35431c89ceff230a0272d5c4b1c))
+
+
 ### 0.6.3 (2015-12-28)
 
 
